@@ -13,6 +13,12 @@
     background-color: red;
     position: relative;
     top: 150px; 
+    animation: jump 1s infinite;
+}
+@keyframes jump{
+    0%{top: 150px;}
+    50%{top: 50px;}
+    100%{top: 150px}
 }
 #block{
     width: 20px;

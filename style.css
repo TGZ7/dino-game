@@ -1,13 +1,13 @@
-*{
+/* *{
     padding: 0;
     margin: 0;
-}
-#game{
-    width: 750px;
-    height: 200px;
+} */
+#gameScreen{
+    /* width: 750px;
+    height: 200px; */
     border: 1px solid black;
 }
-#character{
+/* #character{
     width: 20px;
     height: 50px;
     background-color: red;
@@ -36,4 +36,4 @@
 @keyframes block {
     0%{left: 750px;}
     100%{left:-40px;}
-}
+} */

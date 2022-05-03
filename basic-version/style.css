@@ -3,9 +3,9 @@
     margin: 0;
 }
 #game{
-    width: 750px;
+    width: 600px;
     height: 240px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 #character{
     /* width: 20px;
@@ -24,8 +24,8 @@
 }
 @keyframes jump{
     0%{top: 240px;}
-    30%{top: 0px;}
-    70%{top: 0px}
+    30%{top: 50px;}
+    70%{top: 50px}
     100%{top: 240px;}
 }
 #block{
@@ -39,10 +39,10 @@
 
     position: relative;
     top: 120px;
-    left: 750px;
+    left: 600px;
     animation: block 1500ms infinite linear;
 }
 @keyframes block {
-    0%{left: 750px;}
+    0%{left: 600px;}
     100%{left:-40px;}
 }

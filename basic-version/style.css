@@ -4,34 +4,43 @@
 }
 #game{
     width: 750px;
-    height: 200px;
+    height: 240px;
     border: 1px solid black;
 }
 #character{
-    width: 20px;
-    height: 50px;
-    background-color: red;
+    /* width: 20px;
+    height: 50px; */
+    /* background-color: red; */
+    width: 120px;
+    height: 120px;
+    background-image: url("assets/images/chara.png");
+
     position: relative;
-    top: 150px; 
+    top: 240px; 
     left: 75px;
 }
 .animate{
     animation: jump 500ms;
 }
 @keyframes jump{
-    0%{top: 150px;}
-    40%{top: 100px;}
-    60%{top: 100px}
-    100%{top: 150px;}
+    0%{top: 240px;}
+    30%{top: 0px;}
+    70%{top: 0px}
+    100%{top: 240px;}
 }
 #block{
-    width: 20px;
+    /* width: 20px;
     height: 20px;
-    background-color: blue;
+    background-color: blue; */
+
+    width: 120px;
+    height: 120px;
+    background-image: url("assets/images/block.png");
+
     position: relative;
-    top: 130px;
+    top: 120px;
     left: 750px;
-    animation: block 2s infinite linear;
+    animation: block 1500ms infinite linear;
 }
 @keyframes block {
     0%{left: 750px;}

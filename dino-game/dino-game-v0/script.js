@@ -1,6 +1,5 @@
 var character = document.getElementById("character");
 var block = document.getElementById("block");
-let gameOver = document.querySelector("#gameOver");
 
 function jump(){
     if(character.classList != "animate"){
@@ -37,20 +36,3 @@ var blockTop = parseInt(window.getComputedStyle(block).getPropertyValue("top"));
 
 // },10);
 
-// Check dead
-var checkDead = setInterval(function(){
-    // We obtain the propiety "Top" (in the css) of the variable character
-    var characterTop = parseInt(window.getComputedStyle(character).getPropertyValue("top"));
-    
-    var blockLeft = parseInt(window.getComputedStyle(block).getPropertyValue("left"));
-    if (blockLeft > characterLeft && blockLeft < (characterLeft + characterWidth) && characterTop > blockTop ){
-        // We stop the animation
-        block.style.animation = "none";
-        block.style.display = "none";
-        gameOver.style.display = "block";
-
-
-        // alert("You lost");
-    }
-
-},10);

@@ -1,3 +1,5 @@
+import playerSprite from './assets/images/cursedmario50.png'
+
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
@@ -21,34 +23,32 @@ class Player {
         }
         this.width = 30
         this.height = 30
+
+        this.image = createImage(playerSprite)
     }
 
     // Method to draw the player
     draw() {
-        ctx.fillStyle = 'red'
-        // We give oordenates and size to fillRect method of canvas 
-        ctx.fillRect(this.position.x, this.position.y,
-                    this.width, this.height)
+        ctx.drawImage(this.image, this.position.x, this.position.y)
+        // ctx.fillStyle = 'red'
+        // // We give oordenates and size to fillRect method of canvas 
+        // ctx.fillRect(this.position.x, this.position.y,
+        //             this.width, this.height)
     }
     // Method that changes player propieties over time and draw it
     update() {
         this.draw()
         this.position.y += this.velocity.y
-        this.position.x += this.velocity.x
+        this.position.x += move.x.left + move.x.right
+        if (move.x.left != 0 & move.x.right != 0) {
+            this.position.x += move.x.prev
+        }
 
         // Gravity action
         if (this.position.y + this.height < canvas.height)
             this.velocity.y += gravity
         else 
             this.velocity.y = 0
-
-        // Action of controls:
-        if (keys.right.pressed) {
-            player.velocity.x = 5 
-        } else if (keys.left.pressed) {
-            player.velocity.x = -5
-        } else player.velocity.x = 0
-
 
         // Map bounds:
         if (this.position.y + this.height >= canvas.height) { // Bottom bound
@@ -67,14 +67,15 @@ class Player {
 
 // We create the player
 const player = new Player()
-const keys = {
-    right: {
-        pressed: false
+const move = {
+    x: {
+        prev: 0,
+        right: 0,
+        left:0
     },
-    left: {
-        pressed: false
-    }
 }
+// x speed of the player
+const speed = 5
 
 
 //...... Loop that print and refreshes the screen .......
@@ -94,26 +95,28 @@ animate()
 window.addEventListener('keydown', function(event) {
     // 'keydown' es código para un tipo de addEventListener
     // event guarda la información del evento escuchado
-    console.log(event.key)
+    console.log(event)
     switch (event.key) {
         // w up
         case 'w':
-            player.velocity.y -= 10
+            console.log('up')
             break
         // s down
         case 's':
-            player.velocity.y += 1
+            console.log('down')
             break
         // a left
         case 'a':
-            player.velocity.x -= 1
-            keys.left.pressed = true
+            move.x.prev = -speed
+            move.x.left = -speed
             break
         // d right
         case 'd':
-            player.velocity.x += 1
-            keys.right.pressed = true
+            move.x.prev = speed
+            move.x.right = speed
             break
+        case ' ':
+            player.velocity.y = -10
     }
 } )
 
@@ -124,21 +127,19 @@ window.addEventListener('keyup', function(event) {
     switch (event.key) {
         // w up
         case 'w':
-            player.velocity.y -= 10
+            console.log('up keyup')
             break
         // s down
         case 's':
-            player.velocity.y += 1
+            console.log('down keyup')
             break
         // a left
         case 'a':
-            player.velocity.x -= 1
-            keys.left.pressed = false
+            move.x.left = 0
             break
         // d right
         case 'd':
-            player.velocity.x += 1
-            keys.right.pressed = false
+            move.x.right = 0
             break
     }
 } )

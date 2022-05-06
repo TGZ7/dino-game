@@ -42,6 +42,14 @@ class Player {
         else 
             this.velocity.y = 0
 
+        // Action of controls:
+        if (keys.right.pressed) {
+            player.velocity.x = 5 
+        } else if (keys.left.pressed) {
+            player.velocity.x = -5
+        } else player.velocity.x = 0
+
+
         // Map bounds:
         if (this.position.y + this.height >= canvas.height) { // Bottom bound
             this.position.y = canvas.height - this.height
@@ -59,6 +67,14 @@ class Player {
 
 // We create the player
 const player = new Player()
+const keys = {
+    right: {
+        pressed: false
+    },
+    left: {
+        pressed: false
+    }
+}
 
 
 //...... Loop that print and refreshes the screen .......
@@ -91,10 +107,38 @@ window.addEventListener('keydown', function(event) {
         // a left
         case 'a':
             player.velocity.x -= 1
+            keys.left.pressed = true
             break
         // d right
         case 'd':
             player.velocity.x += 1
+            keys.right.pressed = true
+            break
+    }
+} )
+
+window.addEventListener('keyup', function(event) {
+    // 'keydown' es código para un tipo de addEventListener
+    // event guarda la información del evento escuchado
+    console.log(event.key)
+    switch (event.key) {
+        // w up
+        case 'w':
+            player.velocity.y -= 10
+            break
+        // s down
+        case 's':
+            player.velocity.y += 1
+            break
+        // a left
+        case 'a':
+            player.velocity.x -= 1
+            keys.left.pressed = false
+            break
+        // d right
+        case 'd':
+            player.velocity.x += 1
+            keys.right.pressed = false
             break
     }
 } )

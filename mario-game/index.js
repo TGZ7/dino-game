@@ -37,10 +37,23 @@ class Player {
         this.position.x += this.velocity.x
 
         // Gravity action
-        if (this.position.y + this.height <= canvas.height)
+        if (this.position.y + this.height < canvas.height)
             this.velocity.y += gravity
         else 
             this.velocity.y = 0
+
+        // Map bounds:
+        if (this.position.y + this.height >= canvas.height) { // Bottom bound
+            this.position.y = canvas.height - this.height
+            this.velocity.y = 0 }
+        if (this.position.x <= 0) {                          // Left bound
+            this.position.x = 0
+            this.velocity.x = 0 }
+        if (this.position.x + this.width >= canvas.width) {   // Right bound
+            this.position.x = canvas.width - this.width
+            this.velocity.x = 0 }
+        if (this.position.y <= 0) {                           // Up bound
+            this.position.y = 0 }
     }
 }
 
@@ -60,3 +73,33 @@ function animate() {
 
 // We call the loop function
 animate()
+
+// Controls:
+window.addEventListener('keydown', function(event) {
+    // 'keydown' es código para un tipo de addEventListener
+    // event guarda la información del evento escuchado
+    console.log(event.key)
+    switch (event.key) {
+        // w up
+        case 'w':
+            player.velocity.y -= 10
+            break
+        // s down
+        case 's':
+            player.velocity.y += 1
+            break
+        // a left
+        case 'a':
+            player.velocity.x -= 1
+            break
+        // d right
+        case 'd':
+            player.velocity.x += 1
+            break
+    }
+} )
+
+// a: 65
+// w: 87
+// d: 68
+// s: 83

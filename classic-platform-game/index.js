@@ -8,6 +8,7 @@ canvas.width = 700 //window.innerWidth
 canvas.height = 700 //window.innerHeight
 
 const gravity = 0.5
+
 // Class Player 
 class Player {
     /*  With constructor we stablish the propieties
@@ -18,7 +19,11 @@ class Player {
             y: 100
         }
         this.velocity = {
-            x: 0,
+            x: {
+                prev: 0,
+                right: 0,
+                left: 0
+            },
             y: 1
         }
         this.width = 30
@@ -39,9 +44,9 @@ class Player {
     update() {
         this.draw()
         this.position.y += this.velocity.y
-        this.position.x += move.x.left + move.x.right
-        if (move.x.left != 0 & move.x.right != 0) {
-            this.position.x += move.x.prev
+        this.position.x += this.velocity.x.left + this.velocity.x.right
+        if (this.velocity.x.left != 0 & this.velocity.x.right != 0) {
+            this.position.x += this.velocity.x.prev
         }
 
         // Gravity action
@@ -55,11 +60,11 @@ class Player {
             this.position.y = canvas.height - this.height
             this.velocity.y = 0 }
         if (this.position.x <= 0) {                          // Left bound
-            this.position.x = 0
-            this.velocity.x = 0 }
+            this.position.x = 0 }
+            // this.velocity.x.left = 0 }
         if (this.position.x + this.width >= canvas.width) {   // Right bound
-            this.position.x = canvas.width - this.width
-            this.velocity.x = 0 }
+            this.position.x = canvas.width - this.width }
+            // this.velocity.x.right = 0 }
         if (this.position.y <= 0) {                           // Up bound
             this.position.y = 0 }
     }
@@ -67,15 +72,6 @@ class Player {
 
 // We create the player
 const player = new Player()
-const move = {
-    x: {
-        prev: 0,
-        right: 0,
-        left:0
-    },
-}
-// x speed of the player
-const speed = 5
 
 
 //...... Loop that print and refreshes the screen .......
@@ -90,6 +86,9 @@ function animate() {
 
 // We call the loop function
 animate()
+
+// x speed of the controls of the player
+const speed = 5
 
 // Controls:
 window.addEventListener('keydown', function(event) {
@@ -107,13 +106,13 @@ window.addEventListener('keydown', function(event) {
             break
         // a left
         case 'a':
-            move.x.prev = -speed
-            move.x.left = -speed
+            player.velocity.x.prev = -speed
+            player.velocity.x.left = -speed
             break
         // d right
         case 'd':
-            move.x.prev = speed
-            move.x.right = speed
+            player.velocity.x.prev = speed
+            player.velocity.x.right = speed
             break
         case ' ':
             player.velocity.y = -10
@@ -135,11 +134,11 @@ window.addEventListener('keyup', function(event) {
             break
         // a left
         case 'a':
-            move.x.left = 0
+            player.velocity.x.left = 0
             break
         // d right
         case 'd':
-            move.x.right = 0
+            player.velocity.x.right = 0
             break
     }
 } )

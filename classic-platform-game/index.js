@@ -1,11 +1,11 @@
-import playerSprite from './assets/images/cursedmario50.png'
+// import playerSprite from './assets/images/cursedmario50.png'
 
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
 // We modify the canvas size ?:
-// canvas.width = window.innerWidth
-// canvas.width = window.innerHeight
+canvas.width = 700 //window.innerWidth
+canvas.height = 700 //window.innerHeight
 
 const gravity = 0.5
 // Class Player 
@@ -24,16 +24,16 @@ class Player {
         this.width = 30
         this.height = 30
 
-        this.image = createImage(playerSprite)
+        // this.image = createImage(playerSprite)
     }
 
     // Method to draw the player
     draw() {
-        ctx.drawImage(this.image, this.position.x, this.position.y)
-        // ctx.fillStyle = 'red'
-        // // We give oordenates and size to fillRect method of canvas 
-        // ctx.fillRect(this.position.x, this.position.y,
-        //             this.width, this.height)
+        // ctx.drawImage(this.image, this.position.x, this.position.y)
+        ctx.fillStyle = 'red'
+        // We give oordenates and size to fillRect method of canvas 
+        ctx.fillRect(this.position.x, this.position.y,
+                    this.width, this.height)
     }
     // Method that changes player propieties over time and draw it
     update() {

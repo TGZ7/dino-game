@@ -70,31 +70,55 @@ class Player {
             // this.velocity.x.right = 0 }
         if (this.position.y <= 0) {                           // Up bound
             this.position.y = 0 }
+
+        // Jump counter:
+        // if (this.velocity.y == 0) {this.num_jump = 0}
     }
 }
 
 // Class Platform 
 class Platform {
-    constructor() {
+    constructor({x, y, width, height}) {
         this.position = {
-            x: 200,
-            y: 500
+            x,
+            y
         }
-        this.width = 200
-        this.height = 20
+        this.width = width
+        this.height = height
     }
-    // Method to draw the platform
+    // Method to the platform
     draw() {
         ctx.fillStyle = 'blue'
         ctx.fillRect(this.position.x, this.position.y,
                     this.width, this.height)
 
     }
+    // Method to update the platform
+    // (Maybe we don't want to move the platform but we want
+    // to check collisions with player)
+    update() {
+        this.draw()
+        if (player.position.y + player.height <= this.position.y &&
+            player.position.y + player.height + player.velocity.y >= this.position.y &&
+            player.position.x + player.width >= this.position.x &&
+            player.position.x <= this.position.x + this.width
+            ) {
+                player.position.y = this.position.y - player.height
+                player.velocity.y = 0
+                player.num_jump = 0
+            } 
+    }
 }
+
+let pos2 = {x: 100, y:100}
+
+const platform2 = new Platform(pos2,100,10)
 
 // We create the initial objects in screen:
 const player = new Player()
-const platform = new Platform()
+const platforms = [new Platform({x: 200, y: 500, width: 200, height: 20}),
+                    new Platform({x: 50, y: 400, width: 100, height: 10}),
+                    new Platform({x: 420, y: 300, width: 100, height: 10}) ]
 
 
 //...... Loop that print and refreshes the screen .......
@@ -106,7 +130,11 @@ function animate() {
     // We update the player
     player.update()
     // We draw the platform
-    platform.draw()
+    platforms.forEach((platform) => {
+        platform.update()
+    })
+    // platform.update()
+    // platform2.update()
 }
 
 // We call the loop function

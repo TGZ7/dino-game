@@ -29,8 +29,6 @@ class Player {
         this.width = 30
         this.height = 30
 
-        this.num_jump = 0
-
         // this.image = createImage(playerSprite)
     }
 
@@ -60,8 +58,7 @@ class Player {
         // Map bounds:
         if (this.position.y + this.height >= canvas.height) { // Bottom bound
             this.position.y = canvas.height - this.height
-            this.velocity.y = 0
-            this.num_jump = 0 }     // jump counter
+            this.velocity.y = 0 }
         if (this.position.x <= 0) {                          // Left bound
             this.position.x = 0 }
             // this.velocity.x.left = 0 }
@@ -73,28 +70,8 @@ class Player {
     }
 }
 
-// Class Platform 
-class Platform {
-    constructor() {
-        this.position = {
-            x: 200,
-            y: 500
-        }
-        this.width = 200
-        this.height = 20
-    }
-    // Method to draw the platform
-    draw() {
-        ctx.fillStyle = 'blue'
-        ctx.fillRect(this.position.x, this.position.y,
-                    this.width, this.height)
-
-    }
-}
-
-// We create the initial objects in screen:
+// We create the player
 const player = new Player()
-const platform = new Platform()
 
 
 //...... Loop that print and refreshes the screen .......
@@ -103,10 +80,8 @@ function animate() {
     requestAnimationFrame(animate)
     // We clean the canvas everytime
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    // We update the player
+    // We update the player ()
     player.update()
-    // We draw the platform
-    platform.draw()
 }
 
 // We call the loop function
@@ -114,8 +89,6 @@ animate()
 
 // x speed of the controls of the player
 const speed = 5
-
-
 
 // Controls:
 window.addEventListener('keydown', function(event) {
@@ -142,11 +115,7 @@ window.addEventListener('keydown', function(event) {
             player.velocity.x.right = speed
             break
         case ' ':
-            if (player.num_jump < 2) {
-                player.velocity.y = -10
-                player.num_jump += 1
-            }
-            
+            player.velocity.y = -10
     }
 } )
 

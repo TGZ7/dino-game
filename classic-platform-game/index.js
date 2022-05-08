@@ -85,17 +85,18 @@ class Player {
 
 // Class Platform 
 class Platform {
-    constructor({x, y, width, height}) {
+    constructor({x, y, width, height, color}) {
         this.position = {
             x,
             y
         }
         this.width = width
         this.height = height
+        this.color = color
     }
     // Method to the platform
     draw() {
-        ctx.fillStyle = 'blue'
+        ctx.fillStyle = this.color
         ctx.fillRect(this.position.x, this.position.y,
                     this.width, this.height)
 
@@ -137,14 +138,15 @@ const platform2 = new Platform(pos2,100,10)
 
 // We create the initial objects in screen:
 const player = new Player()
-const platforms = [ new Platform({x: 200, y: 500, width: 200, height: 20}),
-                    new Platform({x: 50, y: 400, width: 100, height: 10}),
-                    new Platform({x: 420, y: 300, width: 100, height: 10}),
-                    new Platform({x: 220, y: 200, width: 50, height: 10}),
-                    new Platform({x: 20, y: 100, width: 100, height: 10}),
-                    new Platform({x: 250, y: 0, width: 100, height: 10}),
-                    new Platform({x: 420, y: -100, width: 50, height: 10}),
-                    new Platform({x: 220, y: -200, width: 50, height: 10})
+const platforms = [ new Platform({x: 0, y: canvas.height, width: canvas.width, height: 10, color: 'black'}),
+                    new Platform({x: 200, y: 500, width: 200, height: 20, color: 'blue'}),
+                    new Platform({x: 50, y: 400, width: 100, height: 10, color: 'blue'}),
+                    new Platform({x: 420, y: 300, width: 100, height: 10, color: 'blue'}),
+                    new Platform({x: 220, y: 200, width: 50, height: 10, color: 'blue'}),
+                    new Platform({x: 20, y: 100, width: 100, height: 10, color: 'blue'}),
+                    new Platform({x: 250, y: 0, width: 100, height: 10, color: 'blue'}),
+                    new Platform({x: 420, y: -100, width: 50, height: 10, color: 'blue'}),
+                    new Platform({x: 220, y: -200, width: 50, height: 10, color: 'blue'})
                     ]
 
 
@@ -162,7 +164,7 @@ function animate() {
     })
 
     // Vertical scroll?
-    if (player.position.y < 300) {
+    if (player.position.y < 400) {
         player.position.y += -player.velocity.y
         platforms.forEach((platform) => {
             platform.position.y += -player.velocity.y

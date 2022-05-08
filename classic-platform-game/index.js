@@ -15,12 +15,12 @@ class Player {
         we want in the object any time we create it */ 
     constructor() {
         this.position = {
-            x: 100,
+            x: 200,
             y: 100
         }
         this.velocity = {
             x: {
-                prev: 0,
+                last: 0,
                 right: 0,
                 left: 0
             },
@@ -31,6 +31,7 @@ class Player {
 
         this.num_jump = 0
         this.landed = false
+        this.freezed = false
 
         // this.image = createImage(playerSprite)
     }
@@ -47,22 +48,18 @@ class Player {
     update() {
         this.draw()
         // Controlls movement
-        this.position.y += this.velocity.y
-        
-        this.position.x += this.velocity.x.left + this.velocity.x.right
-        if (this.velocity.x.left != 0 & this.velocity.x.right != 0) {
-            this.position.x += this.velocity.x.prev
+        this.position.y += this.velocity.y // y movement
+        // In x it will move in a range. Then we move the world instead
+        if (this.freezed == false) {
+            this.position.x = xmovement(this.position.x, this.velocity.x.left, 
+                this.velocity.x.right, this.velocity.x.last)
         }
 
+
         // Gravity action
-        // if (this.position.y + this.height < canvas.height)
-        //     this.velocity.y += gravity
-        // else 
-        //     this.velocity.y = 0
         if (this.landed == false) {
             this.velocity.y += gravity
         }
-
         // Map bounds:
         if (this.position.y + this.height >= canvas.height) { // Bottom bound
             this.position.y = canvas.height - this.height
@@ -76,11 +73,17 @@ class Player {
             // this.velocity.x.right = 0 }
         if (this.position.y <= 0) {                           // Up bound
             this.position.y = 0 }
-
-        // Jump counter:
-        // if (this.velocity.y == 0) {this.num_jump = 0}
     }
 }
+
+function xmovement(x, x_left_vel, x_right_vel, x_last_vel) {
+    x += x_left_vel + x_right_vel
+    if (x_left_vel != 0 && x_right_vel != 0) {
+        x += x_last_vel
+    }
+    return x
+}
+
 
 // Class Platform 
 class Platform {
@@ -100,10 +103,9 @@ class Platform {
 
     }
     // Method to update the platform
-    // (Maybe we don't want to move the platform but we want
-    // to check collisions with player)
     update() {
         this.draw()
+        // Collision with the players
         if (player.position.y + player.height <= this.position.y &&
             player.position.y + player.height + player.velocity.y >= this.position.y &&
             player.position.x + player.width >= this.position.x &&
@@ -116,6 +118,24 @@ class Platform {
             } else {
                 player.landed = false
             } 
+        // Horizontal scroll of the world:
+        // if (!(player.position.x > 100) || !(player.position.x < 400)) { 
+        //     this.position.x = xmovement(this.position.x, -player.velocity.x.left, 
+        //                             -player.velocity.x.right, -player.velocity.x.last)
+        // }
+
+        if (
+            (player.position.x >= 400 && 
+            (player.velocity.x.right !=0 && 
+               (player.velocity.x.left == 0 || player.velocity.x.last > 0 ))) ||
+           (player.position.x <= 100 && 
+               (player.velocity.x.left !=0 && 
+                   (player.velocity.x.right == 0 || player.velocity.x.last < 0 ))) 
+        ) { 
+           player.freezed = true
+           this.position.x = xmovement(this.position.x, -player.velocity.x.left, 
+                                   -player.velocity.x.right, -player.velocity.x.last)
+        } else {player.freezed = false}
     }
 }
 
@@ -169,12 +189,12 @@ window.addEventListener('keydown', function(event) {
             break
         // a left
         case 'a':
-            player.velocity.x.prev = -speed
+            player.velocity.x.last = -speed
             player.velocity.x.left = -speed
             break
         // d right
         case 'd':
-            player.velocity.x.prev = speed
+            player.velocity.x.last = speed
             player.velocity.x.right = speed
             break
         case ' ':

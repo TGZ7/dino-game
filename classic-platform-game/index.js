@@ -15,8 +15,8 @@ class Player {
         we want in the object any time we create it */ 
     constructor() {
         this.position = {
-            x: 200,
-            y: 450
+            x: 275,
+            y: 600
         }
         this.velocity = {
             x: {

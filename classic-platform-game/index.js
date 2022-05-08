@@ -163,7 +163,7 @@ function animate() {
 
     // Vertical scroll?
     if (player.position.y < 300) {
-        player.position.y -= 1
+        player.position.y += 1
         platforms.forEach((platform) => {
             platform.position.y += 1
         })

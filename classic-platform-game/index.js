@@ -31,6 +31,8 @@ class Player {
 
         this.num_jump = 0
 
+        this.landed = false
+
         // this.image = createImage(playerSprite)
     }
 
@@ -52,16 +54,21 @@ class Player {
         }
 
         // Gravity action
-        if (this.position.y + this.height < canvas.height)
+        // if (this.position.y + this.height < canvas.height)
+        //     this.velocity.y += gravity
+        // else 
+        //     this.velocity.y = 0
+        if (this.landed == false) {
             this.velocity.y += gravity
-        else 
-            this.velocity.y = 0
+        }
 
         // Map bounds:
         if (this.position.y + this.height >= canvas.height) { // Bottom bound
             this.position.y = canvas.height - this.height
             this.velocity.y = 0
-            this.num_jump = 0 }     // jump counter
+            this.num_jump = 0 // jump counter
+            this.landed = true
+            }     
         if (this.position.x <= 0) {                          // Left bound
             this.position.x = 0 }
             // this.velocity.x.left = 0 }
@@ -98,6 +105,17 @@ class Platform {
     // to check collisions with player)
     update() {
         this.draw()
+
+        // if (player.position.y + player.height >= this.position.y &&
+        //     player.position.y + player.height <= this.position.y + this.height/2 &&
+        //     player.position.x + player.width >= this.position.x &&
+        //     player.position.x <= this.position.x + this.width
+        //     ) {
+        //         player.position.y = this.position.y - player.height
+        //         player.velocity.y = 0
+        //         player.num_jump = 0
+        //     }
+
         if (player.position.y + player.height <= this.position.y &&
             player.position.y + player.height + player.velocity.y >= this.position.y &&
             player.position.x + player.width >= this.position.x &&
@@ -106,7 +124,10 @@ class Platform {
                 player.position.y = this.position.y - player.height
                 player.velocity.y = 0
                 player.num_jump = 0
-            } 
+                player.landed = true
+        } else {
+            player.landed = false
+        } 
     }
 }
 
@@ -185,6 +206,7 @@ window.addEventListener('keydown', function(event) {
             if (player.num_jump < 2) {
                 player.velocity.y = -10
                 player.num_jump += 1
+                player.landed = false
             }
             
     }

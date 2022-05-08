@@ -15,8 +15,8 @@ class Player {
         we want in the object any time we create it */ 
     constructor() {
         this.position = {
-            x: 100,
-            y: 100
+            x: 200,
+            y: 450
         }
         this.velocity = {
             x: {
@@ -116,9 +116,15 @@ const platform2 = new Platform(pos2,100,10)
 
 // We create the initial objects in screen:
 const player = new Player()
-const platforms = [new Platform({x: 200, y: 500, width: 200, height: 20}),
+const platforms = [ new Platform({x: 200, y: 500, width: 200, height: 20}),
                     new Platform({x: 50, y: 400, width: 100, height: 10}),
-                    new Platform({x: 420, y: 300, width: 100, height: 10}) ]
+                    new Platform({x: 420, y: 300, width: 100, height: 10}),
+                    new Platform({x: 220, y: 200, width: 50, height: 10}),
+                    new Platform({x: 20, y: 100, width: 100, height: 10}),
+                    new Platform({x: 250, y: 0, width: 100, height: 10}),
+                    new Platform({x: 420, y: -100, width: 50, height: 10}),
+                    new Platform({x: 220, y: -200, width: 50, height: 10})
+                    ]
 
 
 //...... Loop that print and refreshes the screen .......
@@ -133,8 +139,14 @@ function animate() {
     platforms.forEach((platform) => {
         platform.update()
     })
-    // platform.update()
-    // platform2.update()
+
+    // Vertical scroll?
+    if (player.position.y < 300) {
+        player.position.y -= 1
+        platforms.forEach((platform) => {
+            platform.position.y += 1
+        })
+    }
 }
 
 // We call the loop function

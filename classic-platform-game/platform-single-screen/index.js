@@ -30,6 +30,7 @@ class Player {
         this.height = 30
 
         this.num_jump = 0
+        this.landed = false
 
         // this.image = createImage(playerSprite)
     }
@@ -52,10 +53,13 @@ class Player {
         }
 
         // Gravity action
-        if (this.position.y + this.height < canvas.height)
+        // if (this.position.y + this.height < canvas.height)
+        //     this.velocity.y += gravity
+        // else 
+        //     this.velocity.y = 0
+        if (this.landed == false) {
             this.velocity.y += gravity
-        else 
-            this.velocity.y = 0
+        }
 
         // Map bounds:
         if (this.position.y + this.height >= canvas.height) { // Bottom bound
@@ -106,6 +110,9 @@ class Platform {
                 player.position.y = this.position.y - player.height
                 player.velocity.y = 0
                 player.num_jump = 0
+                player.landed = true
+            } else {
+                player.landed = false
             } 
     }
 }
@@ -133,8 +140,7 @@ function animate() {
     platforms.forEach((platform) => {
         platform.update()
     })
-    // platform.update()
-    // platform2.update()
+
 }
 
 // We call the loop function
@@ -173,6 +179,7 @@ window.addEventListener('keydown', function(event) {
             if (player.num_jump < 2) {
                 player.velocity.y = -10
                 player.num_jump += 1
+                player.landed = false
             }
             
     }

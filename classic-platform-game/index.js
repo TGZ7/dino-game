@@ -19,9 +19,7 @@ const platforms = [ new Platform(firstPlatform),
                     new Platform({x: 50, y: 400, width: 100, height: 10}),
                     new Platform({x: 420, y: 300, width: 100, height: 10}) ]
 
-// temp drop coords
-var x_drop = 100
-var y_drop = 0
+var drop_list = [new Drop()]
 
 //....... Loop that print and refreshes the screen .......//
 function animate() {
@@ -36,8 +34,9 @@ function animate() {
     })
     // How far right the player has gone
     player.scrollOffset = -(platforms[0].position.x - firstPlatform.x)
+    
     // We plot the drops
-    x_drop, y_drop = drop(x_drop, y_drop)
+    drop_list = dropManager(drop_list)
 }
 
 // We call the loop function

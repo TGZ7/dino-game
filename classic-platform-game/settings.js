@@ -16,3 +16,7 @@ pj_img.src = 'assets/images/cursedmario50.png';
 const gravity = 0.5
 // x speed of the controls of the player
 const speed = 5
+
+//// Drops
+const dropSize = { width: 20, height: 20}
+const dropSpeedLimits = [2,10]

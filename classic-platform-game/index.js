@@ -10,6 +10,10 @@ canvas.height = 700 //window.innerHeight
 
 const gravity = 0.5
 
+var pj_img = new Image(30, 30);
+pj_img.src = 'assets/images/cursedmario50.png';
+
+
 // Class Player 
 class Player {
     /*  With constructor we stablish the propieties
@@ -97,10 +101,10 @@ class Platform {
     }
     // Method to the platform
     draw() {
-        ctx.fillStyle = 'blue'
-        ctx.fillRect(this.position.x, this.position.y,
-                    this.width, this.height)
-
+        // ctx.fillStyle = 'blue'
+        // ctx.fillRect(this.position.x, this.position.y,
+        //             this.width, this.height)
+        ctx.drawImage(pj_img,this.position.x,this.position.y,this.width, this.height)
     }
     // Method to update the platform
     update() {

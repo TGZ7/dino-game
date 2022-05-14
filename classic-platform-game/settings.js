@@ -12,11 +12,11 @@ const ctx = canvas.getContext('2d')
 
 // We modify the canvas size ?:
 canvas.width = 700 //window.innerWidth
-canvas.height = 700 //window.innerHeight
+canvas.height = 360 //window.innerHeight
 
 //------ Images ------//
 var pj_img = new Image();
-pj_img.src = 'assets/images/cursedmario50.png'
+pj_img.src = 'assets/images/cursedPlumberSprites.png'
 var evil_elmo_img = new Image()
 evil_elmo_img.src = 'assets/images/evilelmotiny.png'
 var sky_img = new Image()

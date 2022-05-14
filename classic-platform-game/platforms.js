@@ -24,12 +24,12 @@ class Platform {
     update() {
         this.draw()
         // Collision with the players
-        if (player.coordinates.y + player.height <= this.coordinates.y &&
-            player.coordinates.y + player.height + player.velocity.y >= this.coordinates.y &&
-            player.coordinates.x + player.width >= this.coordinates.x &&
+        if (player.coordinates.y + player.size.height <= this.coordinates.y &&
+            player.coordinates.y + player.size.height + player.velocity.y >= this.coordinates.y &&
+            player.coordinates.x + player.size.width >= this.coordinates.x &&
             player.coordinates.x <= this.coordinates.x + this.width
             ) {
-                player.coordinates.y = this.coordinates.y - player.height
+                player.coordinates.y = this.coordinates.y - player.size.height
                 player.velocity.y = 0
                 player.num_jump = 0
                 player.landed = true

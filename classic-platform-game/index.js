@@ -38,13 +38,13 @@ function xmovement(x, x_left_vel, x_right_vel, x_last_vel) {
 
 const anchor = new Anchor()
 
-const firstPlatform = {x: 200, y: 500, width: 200, height: 20}
+const firstPlatform = {x: 200, y: canvas.height - 100, width: 200, height: 20}
 
 // We create the initial objects in screen:
 const player = new Player()
 const platforms = [ new Platform(firstPlatform),
-                    new Platform({x: 50, y: 400, width: 100, height: 10}),
-                    new Platform({x: 420, y: 300, width: 100, height: 10}) ]
+                    new Platform({x: 50, y: canvas.height-200, width: 100, height: 10}),
+                    new Platform({x: 420, y: canvas.height-300, width: 100, height: 10}) ]
 
 var drop_list = [new Drop()]
 
@@ -98,18 +98,21 @@ window.addEventListener('keydown', function(event) {
             break
         // a left
         case 'a':
+            player.state = 'lefting'
             player.velocity.x.last = -speed
             player.velocity.x.left = -speed
             console.log(player.scrollOffset)
             break
         // d right
         case 'd':
+            player.state = 'righting'
             player.velocity.x.last = speed
             player.velocity.x.right = speed
             console.log(player.scrollOffset)
             break
         case ' ':
             if (player.num_jump < 2) {
+                // player.state = 'jumping'
                 player.velocity.y = -10
                 player.num_jump += 1
                 player.landed = false
@@ -134,10 +137,12 @@ window.addEventListener('keyup', function(event) {
             break
         // a left
         case 'a':
+            player.state = 'standing_left'
             player.velocity.x.left = 0
             break
         // d right
         case 'd':
+            player.state = 'standing_right'
             player.velocity.x.right = 0
             break
     }

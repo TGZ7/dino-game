@@ -31,8 +31,7 @@ class Drop {
         // ctx.fillStyle = 'red'
         // ctx.fillRect(this.coordinates.x, this.coordinates.y,
         //                 this.size.width, this.size.height)
-        ctx.drawImage(evil_elmo_img, this.coordinates.x, this.coordinates.y,
-                        this.size.width, this.size.height)
+        ctx.drawImage(evil_elmo_img,this.coordinates.x,this.coordinates.y,this.size.width, this.size.height)
     }
     update() {
         this.draw()

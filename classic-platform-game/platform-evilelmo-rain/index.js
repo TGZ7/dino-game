@@ -24,8 +24,13 @@ class Anchor {
         this.coordinates.x = xmovement(this.coordinates.x, -player.velocity.x.left, 
                                 -player.velocity.x.right, -player.velocity.x.last)
         } else {player.freezed = false}
+
+
+
     }
 }
+
+
 
 // Function that calc x movement in base of controls (Player and Platform uses it)
 function xmovement(x, x_left_vel, x_right_vel, x_last_vel) {
@@ -48,21 +53,14 @@ const platforms = [ new Platform(firstPlatform),
 
 var drop_list = [new Drop()]
 
-var sky_object = new Sky()
-
 
 //....... Loop that print and refreshes the screen .......//
 function animate() {
     requestAnimationFrame(animate)
-    // // We clean the canvas everytime
-    // ctx.clearRect(0, 0, canvas.width, canvas.height)
-    // Instead of clear the canvas, we color it
-    ctx.fillStyle = 'aliceblue'
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
+    // We clean the canvas everytime
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
     // We update the anchor
     anchor.update()
-    // We update the sky
-    sky_object.update()
     // We update the player
     player.update()
     // We draw the platform
@@ -71,11 +69,9 @@ function animate() {
     })
     // How far right the player has gone
     player.scrollOffset = -(platforms[0].coordinates.x - firstPlatform.x)
-    // We plot the drops
-    if (rain_check == true) {
-        drop_list = dropManager(drop_list)
-    }
     
+    // We plot the drops
+    drop_list = dropManager(drop_list)
 }
 
 // We call the loop function
@@ -98,15 +94,15 @@ window.addEventListener('keydown', function(event) {
             break
         // a left
         case 'a':
+            console.log(player.scrollOffset)
             player.velocity.x.last = -speed
             player.velocity.x.left = -speed
-            console.log(player.scrollOffset)
             break
         // d right
         case 'd':
+            console.log(player.scrollOffset)
             player.velocity.x.last = speed
             player.velocity.x.right = speed
-            console.log(player.scrollOffset)
             break
         case ' ':
             if (player.num_jump < 2) {
@@ -114,8 +110,6 @@ window.addEventListener('keydown', function(event) {
                 player.num_jump += 1
                 player.landed = false
             }
-            console.log(anchor.coordinates.x)
-            break
             
     }
 } )

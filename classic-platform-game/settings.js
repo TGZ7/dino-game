@@ -20,3 +20,5 @@ const speed = 5
 //// Drops
 const dropSize = { width: 20, height: 20}
 const dropSpeedLimits = [2,10]
+var drops_fallen = 0
+var drops_fallen_message = 'drops_fallen: '

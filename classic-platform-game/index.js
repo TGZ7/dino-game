@@ -21,6 +21,7 @@ const platforms = [ new Platform(firstPlatform),
 
 var drop_list = [new Drop()]
 
+
 //....... Loop that print and refreshes the screen .......//
 function animate() {
     requestAnimationFrame(animate)

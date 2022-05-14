@@ -8,9 +8,20 @@ function dropManager(drop_list) {
     drop_list.forEach((drop) =>{
         drop.update()
         if (drop.coordinates.y >= canvas.height) {
-            // var newDrop = new Drop()
-            drop_list.push(new Drop())
+            // (Special feature) => drop_list.push(new Drop()) // 1 drop and BLOOD RAIN
+            drop.__init__()
+            drops_fallen += 1
+            drops_fallen_message = 'drops_fallen: ' + String(drops_fallen)
+            console.log(drops_fallen_message)
+            console.log('module5: ' + String(drops_fallen % 5))
+            console.log(drops_fallen % 5 === 0)
+
+            if (drops_fallen % 5 == 0) {
+                drop_list.push(new Drop())
+            }
         }
+            
+
     })
     return drop_list
 }
@@ -27,16 +38,6 @@ function dropManager(drop_list) {
 
 class Drop {
     constructor() {
-        // this.coordinates.y = 0
-        // this.coordinates.x = Math.floor(Math.random() * canvas.width)
-        // range = dropSpeedLimits[1]-dropSpeedLimits[0]
-        // this.speed.speed = Math.floor(Math.random() * range) + dropSpeedLimits[0]
-        this.coordinates = {
-            x: 0,
-            y: 0
-        }
-        this.speed = 0
-        this.size = 0
         this.__init__()
     }
     draw() {
@@ -47,10 +48,25 @@ class Drop {
     update() {
         this.draw()
         this.coordinates.y += this.speed
+        this.speed += gravity*0.1
+        /* La mecánica de resetear cuando llega abajo, actualizar
+           una variable global y empezar algo, debería ir aquí o fuera?
+        */
+        // if (this.coordinates.y >= canvas.height) {
+        //     // (Special feature) => drop_list.push(new Drop()) // 1 drop and BLOOD RAIN
+        //     this.__init__()
+        //     drops_fallen += 1
+        //     drops_fallen_message = 'drops_fallen: ' + String(drops_fallen)
+        //     console.log(drops_fallen_message)
+        //     console.log('module5: ' + String(drops_fallen % 5))
+        //     console.log(drops_fallen % 5 === 0)
+        // }
     }
     __init__() {
-        this.coordinates.y = 0
-        this.coordinates.x = Math.floor(Math.random() * canvas.width)
+        this.coordinates = {
+            x: Math.floor(Math.random() * canvas.width),
+            y: 0 //Math.floor(dropSize.height/2) <- No hace falta, ya lo centra
+        }
         // range = dropSpeedLimits[1]-dropSpeedLimits[0]
         this.speed = Math.floor(Math.random() * dropSpeedLimits[1]-dropSpeedLimits[0]) + dropSpeedLimits[0]
         this.size = dropSize

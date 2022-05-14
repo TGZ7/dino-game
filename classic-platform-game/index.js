@@ -2,6 +2,36 @@
 // Player
 // Platform
 
+class Anchor {
+    constructor() {
+        this.coordinates = {
+            x: 0,
+            y: 0
+        }
+    }
+
+    update() {
+        // Freeze and unfreeze the player and move the Anchor horizontally
+        if (
+            (player.coordinates.x >= 400 && 
+            (player.velocity.x.right !=0 && 
+            (player.velocity.x.left == 0 || player.velocity.x.last > 0 ))) ||
+        (player.coordinates.x <= 100 && 
+            (player.velocity.x.left !=0 && 
+                (player.velocity.x.right == 0 || player.velocity.x.last < 0 ))) 
+        ) { 
+        player.freezed = true
+        this.coordinates.x = xmovement(this.coordinates.x, -player.velocity.x.left, 
+                                -player.velocity.x.right, -player.velocity.x.last)
+        } else {player.freezed = false}
+
+
+
+    }
+}
+
+
+
 // Function that calc x movement in base of controls (Player and Platform uses it)
 function xmovement(x, x_left_vel, x_right_vel, x_last_vel) {
     x += x_left_vel + x_right_vel
@@ -10,6 +40,8 @@ function xmovement(x, x_left_vel, x_right_vel, x_last_vel) {
     }
     return x
 }
+
+const anchor = new Anchor()
 
 const firstPlatform = {x: 200, y: 500, width: 200, height: 20}
 
@@ -27,6 +59,8 @@ function animate() {
     requestAnimationFrame(animate)
     // We clean the canvas everytime
     ctx.clearRect(0, 0, canvas.width, canvas.height)
+    // We update the anchor
+    anchor.update()
     // We update the player
     player.update()
     // We draw the platform
@@ -34,7 +68,7 @@ function animate() {
         platform.update()
     })
     // How far right the player has gone
-    player.scrollOffset = -(platforms[0].position.x - firstPlatform.x)
+    player.scrollOffset = -(platforms[0].coordinates.x - firstPlatform.x)
     
     // We plot the drops
     drop_list = dropManager(drop_list)
@@ -51,7 +85,7 @@ window.addEventListener('keydown', function(event) {
     switch (event.key) {
         // w up
         case 'w':
-            // console.log(player.position.x)
+            // console.log(player.coordinates.x)
             // console.log('up')
             break
         // s down

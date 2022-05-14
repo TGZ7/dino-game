@@ -9,8 +9,10 @@ canvas.width = 700 //window.innerWidth
 canvas.height = 700 //window.innerHeight
 
 //------ Images ------//
-var pj_img = new Image(30, 30);
-pj_img.src = 'assets/images/cursedmario50.png';
+var pj_img = new Image();
+pj_img.src = 'assets/images/cursedmario50.png'
+var evil_elmo_img = new Image()
+evil_elmo_img.src = 'assets/images/evilelmotiny.png'
 
 //------ Physics laws ------//
 const gravity = 0.5
@@ -18,7 +20,7 @@ const gravity = 0.5
 const speed = 5
 
 //// Drops
-const dropSize = { width: 20, height: 20}
+const dropSize = { width: 40, height: 40}
 const dropSpeedLimits = [2,10]
 var drops_fallen = 0
 var drops_fallen_message = 'drops_fallen: '

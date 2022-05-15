@@ -154,10 +154,6 @@ class Player {
         if (this.scrollOffset > 2000) {
             console.log('you win')
         }
-
-        if (this.coordinates.x == 0) {
-            rain_check == false
-        }
     
     }
 }

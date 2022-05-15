@@ -36,25 +36,19 @@ function xmovement(x, x_left_vel, x_right_vel, x_last_vel) {
     return x
 }
 
-function randrange(min,max) {
-    return Math.floor((Math.random() * (max - min)) + min )
-}
-
 const anchor = new Anchor()
 
-const firstPlatform = {x: 200, y: canvas.height - 100, n_width: 6, n_height: 1}
+const firstPlatform = {x: 200, y: canvas.height - 100, width: 200, height: 20}
 
 // We create the initial objects in screen:
 const player = new Player()
 const platforms = [ new Platform(firstPlatform),
-                    new Platform({x: 50, y: canvas.height-200, n_width: 3, n_height: 1}),
-                    new Platform({x: 420, y: canvas.height-300, n_width: 3, n_height: 1}) ]
+                    new Platform({x: 50, y: canvas.height-200, width: 100, height: 10}),
+                    new Platform({x: 420, y: canvas.height-300, width: 100, height: 10}) ]
 
 var drop_list = [new Drop()]
 
 var sky_object = new Sky()
-
-var sign1 = new Sign({x: 500, y: canvas.height - tileSize})
 
 
 //....... Loop that print and refreshes the screen .......//
@@ -75,8 +69,6 @@ function animate() {
     platforms.forEach((platform) => {
         platform.update()
     })
-
-    sign1.update()
     // How far right the player has gone
     player.scrollOffset = -(platforms[0].coordinates.x - firstPlatform.x)
     // We plot the drops
@@ -109,7 +101,7 @@ window.addEventListener('keydown', function(event) {
             player.state = 'lefting'
             player.velocity.x.last = -speed
             player.velocity.x.left = -speed
-            console.log(player.coordinates.x)
+            console.log(player.scrollOffset)
             break
         // d right
         case 'd':

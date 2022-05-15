@@ -15,7 +15,7 @@ function dropManager(drop_list) {
             console.log('module5: ' + String(drops_fallen % 5))
             console.log(drops_fallen % 5 === 0)
 
-            if (drops_fallen % 5 == 0 && drops_fallen % 3 == 0) {
+            if (drops_fallen % 5 == 0) {
                 drop_list.push(new Drop())
             }
         }
@@ -44,8 +44,8 @@ class Drop {
     }
     __init__() {
         this.abs_coordinates = {
-            x: randrange(-anchor.coordinates.x - canvas.width, -anchor.coordinates.x + canvas.width),
-            y: -10 //Math.floor(dropSize.height/2) <- No hace falta, ya lo centra
+            x: Math.floor(Math.random() * canvas.width),
+            y: 0 //Math.floor(dropSize.height/2) <- No hace falta, ya lo centra
         }
         this.coordinates = {
             x: anchor.coordinates.x + this.abs_coordinates.x,

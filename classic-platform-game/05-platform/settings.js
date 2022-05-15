@@ -21,10 +21,6 @@ var evil_elmo_img = new Image()
 evil_elmo_img.src = 'assets/images/evilelmotiny.png'
 var sky_img = new Image()
 sky_img.src = 'assets/images/sky1280.png'
-var blocks_img = new Image()
-blocks_img.src = 'assets/images/blocks.png'
-var sign_img = new Image()
-sign_img.src = 'assets/images/sign2.png'
 
 //------ Physics laws ------//
 const gravity = 0.5
@@ -41,5 +37,3 @@ var rain_check = false // check to start the rain
 
 //// Sky
 const skySize = {width: 1280, height: canvas.height}
-
-var tileSize = 20
